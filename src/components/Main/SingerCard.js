@@ -1,76 +1,44 @@
 import React, { Component } from "react";
-import "../../App.css";
+import Modal from "react-bootstrap/Modal";
 
-export class SingerCard extends Component {
-  // showTracks = () => {
-  //   return (
-  //     <div
-  //       className="modal fade"
-  //       id="tracksModal"
-  //       tabindex="-1"
-  //       role="dialog"
-  //       aria-labelledby="tracksModalLabel"
-  //       aria-hidden="true"
-  //     >
-  //       <div className="doal-dialog" role="document">
-  //         <div className="modal-content">
-  //           <div className="modal-header">
-  //             <h5 className="modal-title" id="tracksModalLabel">
-  //               {this.props.name}'s tracks
-  //             </h5>
-  //             <button
-  //               type="button"
-  //               class="close"
-  //               data-dismiss="modal"
-  //               aria-label="Close"
-  //             >
-  //               <span aria-hidden="true">&times;</span>
-  //             </button>
-  //           </div>
-  //           <div className="modal-body">hello</div>
-  //           <div class="modal-footer">
-  //             <button
-  //               type="button"
-  //               class="btn btn-secondary"
-  //               data-dismiss="modal"
-  //             >
-  //               Close
-  //             </button>
-  //             <button type="button" class="btn btn-primary">
-  //               Save changes
-  //             </button>
-  //           </div>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
-  // };
+const SingerCard = (props) => {
+  const [isOpen, setIsOpen] = React.useState(false);
 
-  render() {
-    return (
-      <button
-        type="button"
-        data-toggle="modal"
-        data-target="#tracksModal"
-        onClick={() => this.showTracks()}
-        style={{ padding: "1px" }}
-      >
+  const showModal = () => {
+    setIsOpen(true);
+  };
+
+  const hideModal = () => {
+    setIsOpen(false);
+  };
+
+  return (
+    <>
+      <button type="button" onClick={showModal} style={{ padding: "1px" }}>
         <div className="card" style={{ width: "8rem" }}>
-          <img
-            class="card-img-top"
-            src={this.props.image[0].url}
-            alt="Card image"
-          />
+          <img class="card-img-top" src={props.image[0].url} alt="Card image" />
           <div
             className="card-body"
             style={{ height: "4rem", fontSize: "14px" }}
           >
-            <p className="card-text">{this.props.name}</p>
+            <p className="card-text">{props.name}</p>
           </div>
         </div>
       </button>
-    );
-  }
-}
+      <Modal show={isOpen} onHide={hideModal}>
+        <Modal.Header>
+          <Modal.Title>{props.name}'s songs</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>dc</Modal.Body>
+        {console.log(props.tracks)}
+        <Modal.Footer>
+          <button type="button" className="btn btn-primary" onClick={hideModal}>
+            Close
+          </button>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
+};
 
 export default SingerCard;

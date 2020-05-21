@@ -33,16 +33,18 @@ spotifyApi.clientCredentialsGrant().then(
 
 app.post("/search_result", (req, res) => {
   console.log(req.body.keyword);
-  spotifyApi.searchArtists(req.body.keyword).then(function (data) {
-    console.log(data.body);
-    let search_res = data.body.artists.items;
-    res.json(search_res);
-    res.end();
-  }),
-    function (err) {
+  spotifyApi
+    .searchArtists(req.body.keyword)
+    .then(function (data) {
+      console.log(data.body);
+      let search_res = data.body.artists.items;
+      res.json(search_res);
+      res.end();
+    })
+    .catch((err) => {
       console.log(err);
       res.status(500).send(err);
-    };
+    });
 });
 
 app.listen(port, () => console.log(`It's running on port ${port}`));

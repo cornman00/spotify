@@ -1,23 +1,13 @@
 import React, { Component } from "react";
-import SpotifyWebApi from "spotify-web-api-js";
 import SingerCard from "./SingerCard";
 import axios from "axios";
-
-// import Modal from "./Modal";
-var Spotiyfy = require("spotify-web-api-js");
-
-const spotifyApi = new SpotifyWebApi({
-  clientId: process.env.CLIENT_ID,
-  clientSecret: process.env.CLIENT_SECRET,
-  redirectUri: "http://localhost:8888/callback",
-});
 
 export class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      artist: "",
-      tracks: [],
+      keyword: "",
+      artists: [],
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -25,7 +15,7 @@ export class Main extends Component {
   }
 
   handleChange(e) {
-    this.setState({ artist: e.target.value });
+    this.setState({ keyword: e.target.value });
   }
 
   handleSubmit(e) {
@@ -34,52 +24,36 @@ export class Main extends Component {
       .post(
         "http://localhost:4000/search_result",
         {
-          search: this.state.artist,
+          keyword: this.state.keyword,
         },
         {
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            // Accept: "application/json",
+          },
         }
       )
-      .then(function (response) {
-        console.log(response);
+      .then((res) => {
+        console.log(res.data);
+        this.setState({ artists: res.data });
       })
-      .catch(function (error) {
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
       });
   }
-
-  // async componentDidMount() {
-  //   const res = await fetch("http://localhost:4000/api/");
-  //   const singers = await res.json();
-  //   this.setState({ singers });
-  // }
 
   render() {
     return (
       <div className="main">
-        {/* <div className="genres">
-           <h2 className="header text-capitalize">
-            top 10 tracks of famous singers
-          </h2>
-         </div>
-         <div className="container">
-           {this.state.singers.map((elem) => (
-            <SingerCard
-              image={elem.images}
-              name={elem.name}
-              tracks={this.state.tracks}
-            />
-          ))}
-        </div> */}
-        <br />
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="search">Search an artist: </label>
           <span>
             <input
               type="search"
-              value={this.state.artist}
+              value={this.state.keyword}
               onChange={this.handleChange}
-              name="search"
+              name="keyword"
             />
 
             <button type="submit" value="Submit">
@@ -87,6 +61,19 @@ export class Main extends Component {
             </button>
           </span>
         </form>
+        <br />
+
+        <div className="container">
+          {this.state.artists.map((elem) => (
+            <SingerCard
+              images={elem.images}
+              name={elem.name}
+              artists={this.state.artists}
+            />
+          ))}
+          {console.log("Arists are: " + this.state.artists)}
+        </div>
+        <br />
       </div>
     );
   }

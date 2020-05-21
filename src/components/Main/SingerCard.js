@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Modal from "react-bootstrap/Modal";
+import notFound from "../../notFound.jpg";
 
 const SingerCard = (props) => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -12,11 +13,14 @@ const SingerCard = (props) => {
     setIsOpen(false);
   };
 
+  //check if the image array is empty since some artists' image data provided by the API call are empty
+  let singer_img = props.images.length === 0 ? notFound : props.images[0].url;
+
   return (
     <>
       <button type="button" onClick={showModal} style={{ padding: "1px" }}>
         <div className="card" style={{ width: "8rem" }}>
-          <img class="card-img-top" src={props.image[0].url} alt="Card image" />
+          <img class="card-img-top" src={singer_img} alt="Card image" />
           <div
             className="card-body"
             style={{ height: "4rem", fontSize: "14px" }}
@@ -30,7 +34,7 @@ const SingerCard = (props) => {
           <Modal.Title>{props.name}'s songs</Modal.Title>
         </Modal.Header>
         <Modal.Body>dc</Modal.Body>
-        {console.log(props.tracks)}
+
         <Modal.Footer>
           <button type="button" className="btn btn-primary" onClick={hideModal}>
             Close

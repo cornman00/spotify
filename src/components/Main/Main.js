@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import SingerCard from "./SingerCard";
 import axios from "axios";
+import "../../App.css";
 
 export class Main extends Component {
   constructor(props) {
@@ -20,6 +21,9 @@ export class Main extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    if (this.state.keyword === "") {
+      alert("Enter Search Keyword");
+    }
     axios
       .post(
         "http://localhost:4000/search_result",
@@ -45,25 +49,29 @@ export class Main extends Component {
 
   render() {
     return (
-      <div className="main">
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="search">Search an artist: </label>
-          <span>
-            <input
-              type="search"
-              value={this.state.keyword}
-              onChange={this.handleChange}
-              name="keyword"
-            />
+      <div className="container">
+        <div className="main">
+          <form onSubmit={this.handleSubmit}>
+            <label className="header" htmlFor="search">
+              Explore New Artists
+            </label>
+            <span>
+              <input
+                className="search-box"
+                type="search"
+                value={this.state.keyword}
+                onChange={this.handleChange}
+                name="keyword"
+                placeholder="Search artists..."
+              />
 
-            <button type="submit" value="Submit">
-              Search
-            </button>
-          </span>
-        </form>
-        <br />
+              <button className="submit-btn" type="submit" value="Submit">
+                Search
+              </button>
+            </span>
+          </form>
+          <br />
 
-        <div className="container">
           {this.state.artists.map((elem) => (
             <SingerCard
               images={elem.images}
@@ -71,9 +79,9 @@ export class Main extends Component {
               artists={this.state.artists}
             />
           ))}
-          {console.log("Arists are: " + this.state.artists)}
+
+          <br />
         </div>
-        <br />
       </div>
     );
   }

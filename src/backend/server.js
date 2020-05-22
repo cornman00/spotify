@@ -32,7 +32,6 @@ spotifyApi.clientCredentialsGrant().then(
 );
 
 app.post("/search_result", (req, res) => {
-  console.log(req.body.keyword);
   spotifyApi
     .searchArtists(req.body.keyword)
     .then(function (data) {

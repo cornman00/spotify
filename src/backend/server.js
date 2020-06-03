@@ -3,8 +3,8 @@ const SpotifyWebApi = require("spotify-web-api-node");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
-
 const port = 4000 || process.env.PORT;
+
 require("dotenv").config();
 
 app.use(express.json());
@@ -21,7 +21,6 @@ var spotifyApi = new SpotifyWebApi({
 spotifyApi.clientCredentialsGrant().then(
   function (data) {
     console.log("The access token expires in " + data.body["expires_in"]);
-    console.log("The access token is " + data.body["access_token"]);
 
     // Save the access token so that it's used in future calls
     spotifyApi.setAccessToken(data.body["access_token"]);
@@ -35,7 +34,6 @@ app.post("/search_result", (req, res) => {
   spotifyApi
     .searchArtists(req.body.keyword)
     .then(function (data) {
-      console.log(data.body);
       let search_res = data.body.artists.items;
       res.json(search_res);
       res.end();
@@ -43,6 +41,17 @@ app.post("/search_result", (req, res) => {
     .catch((err) => {
       console.log(err);
       res.status(500).send(err);
+    });
+});
+
+app.get("/albums/:id", (req, res) => {
+  console.log(req.params.id);
+  spotifyApi
+    .getArtistAlbums(req.params.id, { limit: 40 })
+    .then(function (data) {
+      console.log(data.body);
+      res.json(data.body.items);
+      res.end();
     });
 });
 

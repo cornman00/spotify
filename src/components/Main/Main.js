@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import SingerCard from "./SingerCard";
+import SingerBox from "./SingerBox";
 import axios from "axios";
 import "../../App.css";
 
@@ -34,7 +34,6 @@ export class Main extends Component {
           headers: {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
-            // Accept: "application/json",
           },
         }
       )
@@ -73,11 +72,7 @@ export class Main extends Component {
           <br />
 
           {this.state.artists.map((elem) => (
-            <SingerCard
-              images={elem.images}
-              name={elem.name}
-              artists={this.state.artists}
-            />
+            <SingerBox images={elem.images} name={elem.name} id={elem.id} />
           ))}
 
           <br />

@@ -3,7 +3,7 @@ const SpotifyWebApi = require("spotify-web-api-node");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
-const port = 4000 || process.env.PORT;
+const port = process.env.PORT || 4000;
 
 require("dotenv").config();
 

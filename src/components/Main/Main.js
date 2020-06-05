@@ -26,7 +26,7 @@ export class Main extends Component {
     }
     axios
       .post(
-        "http://localhost:4000/search_result",
+        "/search_result",
         {
           keyword: this.state.keyword,
         },
@@ -38,9 +38,11 @@ export class Main extends Component {
         }
       )
       .then((res) => {
+        console.log(process.env.PORT || 4000);
         this.setState({ artists: res.data });
       })
       .catch((err) => {
+        console.log(process.env.PORT || 4000);
         console.log(err);
       });
   }

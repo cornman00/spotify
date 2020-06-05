@@ -1,6 +1,7 @@
 const express = require("express");
 const SpotifyWebApi = require("spotify-web-api-node");
 const bodyParser = require("body-parser");
+const proxy = require("http-proxy-middleware");
 const cors = require("cors");
 const app = express();
 const port = process.env.PORT || 4000;

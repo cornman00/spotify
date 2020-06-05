@@ -26,7 +26,7 @@ export class Main extends Component {
     }
     axios
       .post(
-        "http://localhost:4000/search_result",
+        "/search_result",
         {
           keyword: this.state.keyword,
         },

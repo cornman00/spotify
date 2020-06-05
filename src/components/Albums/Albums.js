@@ -20,9 +20,12 @@ export class Albums extends Component {
       match: { params },
     } = this.props;
 
+    const port = process.env.PORT || 4000;
+    const url = `http://localhost:${port}`;
+
     try {
       const res = await axios.get(
-        `http://localhost:4000/albums/${encodeURIComponent(params.id)}`,
+        `http://localhost:${port}/albums/${encodeURIComponent(params.id)}`,
         {
           params: {
             id: params.id,

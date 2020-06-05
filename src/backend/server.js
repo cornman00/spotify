@@ -18,17 +18,23 @@ var spotifyApi = new SpotifyWebApi({
 });
 
 // Retrieve an access token.
-spotifyApi.clientCredentialsGrant().then(
-  function (data) {
-    console.log("The access token expires in " + data.body["expires_in"]);
+function newToken() {
+  spotifyApi.clientCredentialsGrant().then(
+    function (data) {
+      console.log("The access token expires in " + data.body["expires_in"]);
 
-    // Save the access token so that it's used in future calls
-    spotifyApi.setAccessToken(data.body["access_token"]);
-  },
-  function (err) {
-    console.log("Something went wrong when retrieving an access token", err);
-  }
-);
+      // Save the access token so that it's used in future calls
+      spotifyApi.setAccessToken(data.body["access_token"]);
+    },
+    function (err) {
+      console.log("Something went wrong when retrieving an access token", err);
+    }
+  );
+}
+
+newToken();
+
+tokenRefreshInterval = setInterval(newToken, 1000 * 60 * 60);
 
 app.post("/search_result", (req, res) => {
   spotifyApi
@@ -48,6 +54,16 @@ app.get("/albums/:id", (req, res) => {
   console.log(req.params.id);
   spotifyApi
     .getArtistAlbums(req.params.id, { limit: 40 })
+    .then(function (data) {
+      res.json(data.body.items);
+      res.end();
+    });
+});
+
+app.get("/albums/tracks/:albumID", (req, res) => {
+  console.log(req.params.albumID);
+  spotifyApi
+    .getAlbumTracks(req.params.albumID, { limit: 20 })
     .then(function (data) {
       console.log(data.body);
       res.json(data.body.items);

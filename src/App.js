@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Main from "./components/Main/Main";
 import Albums from "./components/Albums/Albums";
 import Navbar from "./components/Navbar";
+import Tracks from "./components/Tracks/Tracks";
 import "./App.css";
 
 export class App extends Component {
@@ -14,6 +15,7 @@ export class App extends Component {
         <Switch>
           <Route exact path="/" component={Main} />
           <Route exact path="/albums/:id" component={Albums} />
+          <Route exact path="/albums/tracks/:albumID" component={Tracks} />
         </Switch>
       </React.Fragment>
     );

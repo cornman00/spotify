@@ -1,11 +1,7 @@
-import React, { Component } from "react";
-import Modal from "react-bootstrap/Modal";
+import React from "react";
 import ImageNotFound from "../../ImageNotFound.jpg";
 import "../../App.css";
 import { Link } from "react-router-dom";
-
-import Albums from "../Albums/Albums";
-import axios from "axios";
 
 const SingerBox = (props) => {
   const { images, name, id } = props;
@@ -18,7 +14,7 @@ const SingerBox = (props) => {
       <Link to={`/albums/${id}`}>
         <div className="box">
           <div>
-            <img className="singer-img" src={singer_img} alt="Card image" />
+            <img className="singer-img" src={singer_img} alt="Not Loaded" />
             {name}
           </div>
         </div>

@@ -38,7 +38,6 @@ export class Main extends Component {
         }
       )
       .then((res) => {
-        console.log(res.data);
         this.setState({ artists: res.data });
       })
       .catch((err) => {

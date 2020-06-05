@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { ReactComponent as spotifyLogo } from "../spotifyLogo.svg";
 
 export class Navbar extends Component {
   render() {

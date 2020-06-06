@@ -1,18 +1,11 @@
 const express = require("express");
 const SpotifyWebApi = require("spotify-web-api-node");
-// const favicon = require("express-favicon");
-// const path = require("path");
 const bodyParser = require("body-parser");
-// const proxy = require("http-proxy-middleware");
 const cors = require("cors");
 const app = express();
 const port = process.env.PORT || 4000;
 
 if (process.env.NODE_ENV !== "production") require("dotenv").config();
-
-// app.use(favicon(__dirname + "/build/favicon.ico"));
-// app.use(express.static(__dirname));
-// app.use(express.static(path.join(__dirname, "build")));
 
 app.use(express.json());
 app.use(cors());

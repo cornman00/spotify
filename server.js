@@ -8,7 +8,7 @@ const cors = require("cors");
 const app = express();
 const port = process.env.PORT || 4000;
 
-require("dotenv").config();
+if (process.env.NODE_ENV !== "production") require("dotenv").config();
 
 // app.use(favicon(__dirname + "/build/favicon.ico"));
 // app.use(express.static(__dirname));

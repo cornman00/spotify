@@ -21,14 +21,12 @@ export class Albums extends Component {
     } = this.props;
 
     try {
-      const res = await axios.get(
-        `http://localhost:4000/albums/${encodeURIComponent(params.id)}`,
-        {
-          params: {
-            id: params.id,
-          },
-        }
-      );
+      const res = await axios.get(`/albums/${encodeURIComponent(params.id)}`, {
+        params: {
+          id: params.id,
+        },
+      });
+
       this.setState({ albums: res.data });
     } catch (err) {
       console.log("Albums data fetch failed: " + err);

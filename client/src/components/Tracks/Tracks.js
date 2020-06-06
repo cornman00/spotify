@@ -21,9 +21,7 @@ export class Tracks extends Component {
 
     try {
       const res = await axios.get(
-        `http://localhost:4000/albums/tracks/${encodeURIComponent(
-          params.albumID
-        )}`,
+        `/albums/tracks/${encodeURIComponent(params.albumID)}`,
         {
           params: {
             albumID: params.albumID,

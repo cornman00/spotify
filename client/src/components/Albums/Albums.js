@@ -15,22 +15,26 @@ export class Albums extends Component {
     this.getAlbums();
   }
 
-  async getAlbums() {
+  getAlbums() {
     const {
       match: { params },
     } = this.props;
 
-    try {
-      const res = await axios.get(`/albums/${encodeURIComponent(params.id)}`, {
-        params: {
-          id: params.id,
-        },
-      });
-
-      this.setState({ albums: res.data });
-    } catch (err) {
-      console.log("Albums data fetch failed: " + err);
-    }
+    (async () => {
+      try {
+        const res = await axios.get(
+          `/albums/${encodeURIComponent(params.id)}`,
+          {
+            params: {
+              id: params.id,
+            },
+          }
+        );
+        this.setState({ albums: res.data });
+      } catch (err) {
+        console.log("Albums data fetch failed: " + err);
+      }
+    })();
   }
 
   render() {
@@ -45,6 +49,7 @@ export class Albums extends Component {
                   name={item.name}
                   release_date={item.release_date}
                   albumID={item.id}
+                  key={item.id}
                 />
               ))}
           </div>

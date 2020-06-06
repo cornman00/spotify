@@ -9,7 +9,8 @@ export class TrackLists extends Component {
         <a
           href={external_urls.spotify}
           target="_blank"
-          class="badge badge-primary badge-pill"
+          rel="noopener noreferrer"
+          className="badge badge-primary badge-pill"
           style={{ marginLeft: "2rem" }}
         >
           Play

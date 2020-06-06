@@ -55,23 +55,28 @@ app.post("/search_result", (req, res) => {
 });
 
 app.get("/albums/:id", (req, res) => {
-  console.log(req.params.id);
   spotifyApi
     .getArtistAlbums(req.params.id, { limit: 40 })
     .then(function (data) {
       res.json(data.body.items);
       res.end();
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send(err);
     });
 });
 
 app.get("/albums/tracks/:albumID", (req, res) => {
-  console.log(req.params.albumID);
   spotifyApi
     .getAlbumTracks(req.params.albumID, { limit: 20 })
     .then(function (data) {
-      console.log(data.body);
       res.json(data.body.items);
       res.end();
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send(err);
     });
 });
 

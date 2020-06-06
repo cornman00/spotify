@@ -38,11 +38,9 @@ export class Main extends Component {
         }
       )
       .then((res) => {
-        console.log(process.env.PORT || 4000);
         this.setState({ artists: res.data });
       })
       .catch((err) => {
-        console.log(process.env.PORT || 4000);
         console.log(err);
       });
   }
@@ -72,8 +70,13 @@ export class Main extends Component {
           </form>
           <br />
 
-          {this.state.artists.map((elem) => (
-            <SingerBox images={elem.images} name={elem.name} id={elem.id} />
+          {this.state.artists.map((item) => (
+            <SingerBox
+              images={item.images}
+              name={item.name}
+              id={item.id}
+              key={item.id}
+            />
           ))}
 
           <br />

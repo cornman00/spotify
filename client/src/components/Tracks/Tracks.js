@@ -14,25 +14,26 @@ export class Tracks extends Component {
     this.getTracks();
   }
 
-  async getTracks() {
+  getTracks() {
     const {
       match: { params },
     } = this.props;
-
-    try {
-      const res = await axios.get(
-        `/albums/tracks/${encodeURIComponent(params.albumID)}`,
-        {
-          params: {
-            albumID: params.albumID,
-          },
-        }
-      );
-      console.log(res.data);
-      this.setState({ tracks: res.data });
-    } catch (err) {
-      console.log("Track data fetch failed: " + err);
-    }
+    (async () => {
+      try {
+        const res = await axios.get(
+          `/albums/tracks/${encodeURIComponent(params.albumID)}`,
+          {
+            params: {
+              albumID: params.albumID,
+            },
+          }
+        );
+        console.log(res.data);
+        this.setState({ tracks: res.data });
+      } catch (err) {
+        console.log("Track data fetch failed: " + err);
+      }
+    })();
   }
 
   render() {
@@ -44,7 +45,11 @@ export class Tracks extends Component {
         <ul>
           {tracks &&
             tracks.map((item) => (
-              <TrackLists name={item.name} external_urls={item.external_urls} />
+              <TrackLists
+                name={item.name}
+                external_urls={item.external_urls}
+                key={item.id}
+              />
             ))}
         </ul>
       </div>

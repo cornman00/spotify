@@ -20,11 +20,8 @@ export class Tracks extends Component {
     } = this.props;
 
     try {
-      const port = process.env.PORT || 4000;
-      const url = `http://localhost:${port}`;
-
       const res = await axios.get(
-        `http://localhost:${port}/albums/tracks/${encodeURIComponent(
+        `http://localhost:4000/albums/tracks/${encodeURIComponent(
           params.albumID
         )}`,
         {

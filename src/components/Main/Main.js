@@ -20,15 +20,13 @@ export class Main extends Component {
   }
 
   handleSubmit(e) {
-    const port = process.env.PORT || 4000;
-    const url = `http://localhost:${port}`;
     e.preventDefault();
     if (this.state.keyword === "") {
       alert("Enter Search Keyword");
     }
     axios
       .post(
-        url + "/search_result",
+        "http://localhost:4000/search_result",
         {
           keyword: this.state.keyword,
         },

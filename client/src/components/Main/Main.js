@@ -15,6 +15,8 @@ export class Main extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  console.log('hello world!')
+
   handleChange(e) {
     this.setState({ keyword: e.target.value });
   }

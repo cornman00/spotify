@@ -1,0 +1,12 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - npm run install-client
+      - npm run build
+
+artifacts:
+  files:
+    - "**/*"
+  name: BuildOutput

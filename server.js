@@ -67,11 +67,6 @@ app.get("/albums/:id", (req, res) => {
     });
 });
 
-app.get("/", (req, res) => {
-  console.log(process.env.NODE_ENV);
-  res.send(process.env.NODE_ENV);
-});
-
 app.get("/albums/tracks/:albumID", (req, res) => {
   spotifyApi
     .getAlbumTracks(req.params.albumID, { limit: 20 })
